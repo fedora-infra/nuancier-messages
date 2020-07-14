@@ -1,3 +1,5 @@
-# nuancier-messages
+# nuancier messages
 
-Fedora Messaging schemas for Nuancier (https://pagure.io/nuancier)
+A schema package for [nuancier](https://pagure.io/nuancier).
+
+See the [detailed documentation](https://fedora-messaging.readthedocs.io/en/latest/messages.html) on packaging your schemas.

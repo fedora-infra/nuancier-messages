@@ -30,21 +30,22 @@ class NewThingV1(nuancierMessage):
         "$schema": "http://json-schema.org/draft-04/schema#",
         "description": "Schema for messages sent when a new thing is created",
         "type": "object",
-        "properties": {"agent": {"type": "string"}, "thing": THING_SCHEMA},
-        "required": ["agent", "thing"],
+        "properties": {"agent_name": {"type": "string"}, "thing": THING_SCHEMA},
+        "required": ["agent_name", "thing"],
     }
 
     def __str__(self):
         """Return a complete human-readable representation of the message."""
-        return "New Thing: {thing}\nBy: {agent}\n".format(
-            thing=self.body["thing"]["name"], agent=self.body["agent"],
+        return "New Thing: {thing}\nBy: {agent_name}\n".format(
+            thing=self.body["thing"]["name"],
+            agent_name=self.body["agent_name"],
         )
 
     @property
     def summary(self):
         """Return a summary of the message."""
-        return '{agent} created thing "{name}" ({id})'.format(
-            agent=self.body["agent"],
+        return '{agent_name} created thing "{name}" ({id})'.format(
+            agent_name=self.body["agent_name"],
             name=self.body["thing"]["name"],
             id=self.body["thing"]["id"],
         )

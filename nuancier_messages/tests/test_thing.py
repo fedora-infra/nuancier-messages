@@ -28,7 +28,7 @@ def test_minimal():
     Assert the message schema validates a message with the required fields.
     """
     body = {
-        "agent": "dummy-user",
+        "agent_name": "dummy-user",
         "thing": DUMMY_THING,
     }
     message = NewThingV1(body=body)
@@ -43,7 +43,7 @@ def test_full():
     thing = DUMMY_THING.copy()
     thing["url"] = "http://localhost/thing"
     body = {
-        "agent": "dummy-user",
+        "agent_name": "dummy-user",
         "thing": thing,
     }
     message = NewThingV1(body=body)
@@ -54,7 +54,7 @@ def test_full():
 def test_missing_fields():
     """Assert an exception is actually raised on validation failure."""
     minimal_message = {
-        "agent": "dummy-user",
+        "agent_name": "dummy-user",
         "thing": {"id": 1},
     }
     message = NewThingV1(body=minimal_message)
@@ -65,7 +65,7 @@ def test_missing_fields():
 def test_str():
     """Assert __str__ produces a human-readable message."""
     body = {
-        "agent": "dummy-user",
+        "agent_name": "dummy-user",
         "thing": DUMMY_THING,
     }
     expected_str = "New Thing: dummy\nBy: dummy-user\n"
@@ -77,7 +77,7 @@ def test_str():
 def test_summary():
     """Assert the summary is correct."""
     body = {
-        "agent": "dummy-user",
+        "agent_name": "dummy-user",
         "thing": DUMMY_THING,
     }
     expected_summary = 'dummy-user created thing "dummy" (1)'

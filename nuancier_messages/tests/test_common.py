@@ -16,6 +16,8 @@
 
 """Unit tests for common properties of the message schemas."""
 
+import pytest
+
 from ..thing import NewThingV1
 from .utils import DUMMY_THING
 
@@ -23,17 +25,24 @@ from .utils import DUMMY_THING
 def test_properties():
     """Assert some properties are correct."""
     body = {
-        "agent": "dummy-user",
+        "agent_name": "dummy-user",
         "thing": DUMMY_THING,
     }
     message = NewThingV1(body=body)
 
     assert message.app_name == "nuancier"
+    assert message.app_icon == "https://apps.fedoraproject.org/img/icons/nuancier.png"
+    assert message.agent_name == "dummy-user"
+
+    with pytest.warns(DeprecationWarning) as w:
+        assert message.agent, ["dummy-user"]
+
+    assert len(w) == 1
     assert (
-        message.app_icon
-        == "https://apps.fedoraproject.org/img/icons/nuancier.png"
+        w[0].message.args[0]
+        == "agent property is deprecated, please use agent_name instead"
     )
-    assert message.agent == "dummy-user"
+
     assert message.agent_avatar == (
         "https://seccdn.libravatar.org/avatar/"
         "18e8268125372e35f95ef082fd124e9274d46916efe2277417fa5fecfee31af1"
